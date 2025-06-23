@@ -1,0 +1,123 @@
+
+* .modal {
+ display: none; /* Скрыто по умолчанию */
+ position: fixed; /* Фиксированное позиционирование */
+ z-index: 1000; /* Должен быть выше других элементов */
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ background-color: rgba(0,0,0,0.7); /* Полупрозрачный черный фон */
+ overflow: auto; /* Добавляем прокрутку если нужно */
+}
+
+.modal-content {
+ background-color: #1a1a2e;
+ margin: 10% auto; /* 10% от верха и по центру */
+ padding: 20px;
+ border: 1px solid #ffcc00;
+ border-radius: 10px;
+ width: 80%;
+ max-width: 500px;
+ position: relative;
+ color: white;
+}
+
+.close {
+ position: absolute;
+ right: 15px;
+ top: 10px;
+ color: #aaa;
+ font-size: 28px;
+ font-weight: bold;
+ cursor: pointer;
+}
+
+.close:hover {
+ color: white;
+}
+
+
+
+
+/* Стили для выбора криптовалюты */
+.crypto-options {
+    margin: 20px 0;
+}
+
+#crypto-select {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #4cc2ff;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Стили для адреса кошелька */
+#crypto-address {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    position: relative;
+}
+
+#wallet-address {
+    font-family: 'Courier New', monospace;
+    word-break: break-all;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* Стили для кнопки копирования */
+#copy-address {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #4cc2ff, #2d8bff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+#copy-address:hover {
+    background: linear-gradient(to right, #3ab0ff, #1d7eff);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 139, 255, 0.3);
+}
+
+/* Дополнительные стили текста */
+.modal-content h2 {
+    color: #4cc2ff;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #fff;
+    margin: 15px 0 10px;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+        padding: 15px;
+    }
+}
